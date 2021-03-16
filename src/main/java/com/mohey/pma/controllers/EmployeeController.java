@@ -2,7 +2,6 @@ package com.mohey.pma.controllers;
 
 import com.mohey.pma.dao.EmployeeRepository;
 import com.mohey.pma.entities.Employee;
-import com.mohey.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +19,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeController {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepo;
+
+    @GetMapping(value = "/")
+    public String displayEmployees(Model model){
+        model.addAttribute("employees", employeeRepo.findAll());
+        return "employees/list-employees";
+    }
 
     @GetMapping(value = "/new")
     public String displayEmployeeForm(Model model){
         Employee anEmployee = new Employee();
         model.addAttribute("employee", anEmployee);
-        return "new-employee";
+        return "employees/new-employee";
     }
 
     @PostMapping(value = "/save")
     public String createEmployee(Employee employee){
         //Save Employee to Database
-        employeeRepository.save(employee);
+        employeeRepo.save(employee);
 
-        return "redirect:/employees/new";
+        return "redirect:/employees/";
     }
 }

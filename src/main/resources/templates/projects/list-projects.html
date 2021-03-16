@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: head"/>
+<body>
+    <nav th:replace="layouts :: navbar"/>
+
+    <h1> Projects Directory </h1>
+
+    <a th:href="@{/projects/new}" class="btn btn-secondary btn-sm mb-3"> New Project</a>
+
+    <div th:replace="layouts :: projects"/>
+</body>
+</html>
