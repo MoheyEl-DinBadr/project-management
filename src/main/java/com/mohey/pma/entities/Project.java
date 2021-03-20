@@ -1,6 +1,7 @@
 package com.mohey.pma.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Mohey El-Din Badr
@@ -19,6 +20,9 @@ public class Project {
     private String stage; //NOT_STARTED, COMPLETED, IN_PROGRESS
 
     private String description;
+
+    @OneToMany(mappedBy = "project")
+    private List<Employee> employees;
 
     public Project() {
     }
@@ -59,5 +63,18 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> empolyees) {
+        this.employees = empolyees;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
