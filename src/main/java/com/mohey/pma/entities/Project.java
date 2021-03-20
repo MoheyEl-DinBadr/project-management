@@ -1,6 +1,7 @@
 package com.mohey.pma.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 @Entity
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long projectId;
 
     private String name;
@@ -21,7 +22,11 @@ public class Project {
 
     private String description;
 
-    @OneToMany(mappedBy = "project")
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+                fetch = FetchType.LAZY)
+    @JoinTable(name = "project_employee",
+                joinColumns = @JoinColumn(name = "project_id"),
+                 inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
 
     public Project() {
@@ -31,6 +36,13 @@ public class Project {
         this.name = name;
         this.stage = stage;
         this.description = description;
+    }
+
+    public Project(String name, String stage, String description, List<Employee> employees) {
+        this.name = name;
+        this.stage = stage;
+        this.description = description;
+        this.employees = employees;
     }
 
     public long getProjectId() {
@@ -69,8 +81,15 @@ public class Project {
         return employees;
     }
 
-    public void setEmployees(List<Employee> empolyees) {
-        this.employees = empolyees;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public void addEmployee(Employee employee){
+        if(this.employees == null){
+            employees = new ArrayList<>();
+        }
+        employees.add(employee);
     }
 
     @Override

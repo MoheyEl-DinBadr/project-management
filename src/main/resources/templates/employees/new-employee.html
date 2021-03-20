@@ -9,6 +9,11 @@
             <input type="text" placeholder="Last Name" th:field="${employee.lastName}">
             <input type="email" placeholder="Email Address" th:field="${employee.email}">
 
+            <select th:field="*{projects}" multiple="multiple">
+                <option th:each="project : ${allProjects}" th:value="${project.projectId}"
+                        th:text="${project.name}"/>
+            </select>
+
             <button type="submit">Create Employee</button>
         </form>
     </div>

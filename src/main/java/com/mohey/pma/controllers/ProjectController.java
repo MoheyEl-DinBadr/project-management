@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,22 +46,9 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/save")
-    public String createProject(Project project, @RequestParam List<Long> _employees){
+    public String createProject(Project project){
         //Save Project to Database
         projectRepo.save(project);
-
-        //Here we get _empolyees fron inspect/network section
-        Iterable<Employee> chosenEmployees = employeeRepo.findAllById(_employees);
-        for (Employee employee: chosenEmployees) {
-            employee.setProject(project);
-            employeeRepo.save(employee);
-        }
-
-        // Also works but we use the upper if the field is not set at the objet
-        /*project.getEmpolyees().stream().parallel().forEach(emp-> {
-            emp.setProject(project);
-            employeeRepo.save(emp);
-        });*/
 
         return "redirect:/projects/";
     }

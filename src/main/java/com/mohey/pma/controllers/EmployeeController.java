@@ -1,13 +1,19 @@
 package com.mohey.pma.controllers;
 
 import com.mohey.pma.dao.EmployeeRepository;
+import com.mohey.pma.dao.ProjectRepository;
 import com.mohey.pma.entities.Employee;
+import com.mohey.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mohey El-Din Badr
@@ -21,6 +27,9 @@ public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepo;
 
+    @Autowired
+    ProjectRepository projectReo;
+
     @GetMapping(value = "/")
     public String displayEmployees(Model model){
         model.addAttribute("employees", employeeRepo.findAll());
@@ -31,6 +40,8 @@ public class EmployeeController {
     public String displayEmployeeForm(Model model){
         Employee anEmployee = new Employee();
         model.addAttribute("employee", anEmployee);
+        List<Project> projects = projectReo.findAll();
+        model.addAttribute("allProjects", projects);
         return "employees/new-employee";
     }
 
