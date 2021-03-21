@@ -7,7 +7,26 @@
 
     <a th:href="@{/employees/new}" class="btn btn-secondary btn-sm mb-3"> New Employee</a>
 
-    <div th:replace="layouts :: employees"/>
+    <div th:fragment="employees">
+        <h4> Current Employees </h4>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Employee First Name </th>
+                <th scope="col"> Employee Last Name </th>
+                <th scope="col"> Employee Email </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="employees" type="com.mohey.pma.entities.Employee"*/-->
+            <tr th:each="anEmployee : ${employees}">
+                <td th:text="${anEmployee.firstName}"/>
+                <td th:text="${anEmployee.lastName}"/>
+                <td th:text="${anEmployee.email}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

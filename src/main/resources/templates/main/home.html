@@ -3,10 +3,68 @@
 <head th:replace="layouts :: head"/>
 <body>
     <nav th:replace="layouts :: navbar"/>
+    <div class="container">
+        <h3> Main Dashboard </h3>
+        <hr>
+        <h4> Current Projects </h4>
+        <div class="row" th:fragment="projects">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"> Project Name </th>
+                        <th scope="col"> Project Stage </th>
+                        <th scope="col"> Project Description </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aProject : ${projects}">
+                        <td th:text="${aProject.name}"/>
+                        <td th:text="${aProject.stage}"/>
+                        <td th:text="${aProject.description}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <div th:replace="layouts :: projects"/>
+            <div class="col-md-4" >
+                <canvas id="myPieChart" height="50" width="50"/>
+            </div>
 
-    <div th:replace="layouts :: employees"/>
+        </div>
+
+
+    </div>
+    <div class="container">
+        <h4> Current Employees </h4>
+        <div class="row" th:fragment="employees">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"> Employee First Name </th>
+                    <th scope="col"> Employee Last Name </th>
+                    <th scope="col"> Employee Email </th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="employees" type="com.mohey.pma.entities.Employee"*/-->
+                <tr th:each="anEmployee : ${employees}">
+                    <td th:text="${anEmployee.firstName}"/>
+                    <td th:text="${anEmployee.lastName}"/>
+                    <td th:text="${anEmployee.email}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+    <script type="text/javascript" th:src="@{js/myChart.js}"></script>
 
 </body>
 </html>

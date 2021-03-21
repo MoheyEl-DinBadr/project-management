@@ -8,6 +8,25 @@
 
     <a th:href="@{/projects/new}" class="btn btn-secondary btn-sm mb-3"> New Project</a>
 
-    <div th:replace="layouts :: projects"/>
+    <div th:fragment="projects">
+        <h4> Current Projects </h4>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Project Name </th>
+                <th scope="col"> Project Stage </th>
+                <th scope="col"> Project Description </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="projects" type="com.mohey.pma.entities.Project"*/-->
+            <tr th:each="aProject : ${projects}">
+                <td th:text="${aProject.name}"/>
+                <td th:text="${aProject.stage}"/>
+                <td th:text="${aProject.description}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
