@@ -29,6 +29,11 @@
 
             <div class="col-md-4" >
                 <canvas id="myPieChart" height="50" width="50"/>
+                <script >
+
+                    var chartData = "[[${projectStatusCnt}]]";
+
+                </script>
             </div>
 
         </div>
@@ -48,11 +53,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="employees" type="com.mohey.pma.entities.Employee"*/-->
-                <tr th:each="anEmployee : ${employees}">
+                <tr th:each="anEmployee : ${employeesListProjectsCount}">
                     <td th:text="${anEmployee.firstName}"/>
                     <td th:text="${anEmployee.lastName}"/>
-                    <td th:text="${anEmployee.email}"/>
+                    <td th:text="${anEmployee.projectCount}"/>
                 </tr>
                 </tbody>
             </table>
