@@ -8,6 +8,7 @@ import com.mohey.pma.dto.EmployeeProject;
 import com.mohey.pma.dto.ChartData;
 import com.mohey.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
+    @Value("${version:0.0.1}")
+    String version;
+
     @Autowired
     ProjectRepository projectRepo;
 
@@ -33,7 +37,7 @@ public class HomeController {
     @GetMapping
     public String displayHome(Model model) throws JsonProcessingException {
 
-        Map<String, Object> map = new HashMap<>();
+        model.addAttribute("versionNumber", version);
 
         //List<Project> projects = projectRepo.findAll();
         model.addAttribute("projects", projectRepo.findAll());
