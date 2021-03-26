@@ -13,7 +13,8 @@ import java.util.List;
 @Entity
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
+    @SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
     private long projectId;
 
     private String name;
@@ -28,6 +29,14 @@ public class Project {
                 joinColumns = @JoinColumn(name = "project_id"),
                  inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
+
+
+    @Transient
+    public static String NOT_STARTED = "NOTSTARTED";
+    @Transient
+    public static String COMPLETED = "COMPLETED";
+    @Transient
+    public static String IN_PROGRESS = "INPROGRESS";
 
     public Project() {
     }
