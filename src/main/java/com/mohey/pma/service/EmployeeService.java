@@ -1,8 +1,12 @@
 package com.mohey.pma.service;
 
 import com.mohey.pma.dao.EmployeeRepository;
+import com.mohey.pma.dto.EmployeeProject;
+import com.mohey.pma.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Mohey El-Din Badr
@@ -13,14 +17,17 @@ import org.springframework.stereotype.Service;
 public class EmployeeService {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepo;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+   public Employee save(Employee employee){
+       return employeeRepo.save(employee);
+   }
 
-    @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+   public List<Employee> getAll(){
+       return employeeRepo.findAll();
+   }
+
+   public List<EmployeeProject> employeeProjects(){
+       return employeeRepo.employeeProjects();
+   }
 }

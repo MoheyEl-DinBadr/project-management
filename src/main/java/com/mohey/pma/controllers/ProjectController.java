@@ -1,18 +1,16 @@
 package com.mohey.pma.controllers;
 
-import com.mohey.pma.dao.EmployeeRepository;
-import com.mohey.pma.dao.ProjectRepository;
 import com.mohey.pma.entities.Employee;
 import com.mohey.pma.entities.Project;
+import com.mohey.pma.service.EmployeeService;
+import com.mohey.pma.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,14 +23,14 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    ProjectRepository projectRepo;
+    ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepo;
+    EmployeeService employeeService;
 
     @GetMapping(value = "/")
     public String displayProjects(Model model){
-        model.addAttribute("projects", projectRepo.findAll());
+        model.addAttribute("projects", projectService.getAll());
         return "projects/list-projects";
     }
 
@@ -40,7 +38,7 @@ public class ProjectController {
     public String displayProjectForm(Model model){
         Project aProject = new Project();
         model.addAttribute("project", aProject);
-        List<Employee> employees = employeeRepo.findAll();
+        List<Employee> employees = employeeService.getAll();
         model.addAttribute("allEmployees", employees);
         return "projects/new-project";
     }
@@ -48,7 +46,7 @@ public class ProjectController {
     @PostMapping(value = "/save")
     public String createProject(Project project){
         //Save Project to Database
-        projectRepo.save(project);
+        projectService.save(project);
 
         return "redirect:/projects/";
     }
