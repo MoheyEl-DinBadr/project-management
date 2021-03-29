@@ -1,6 +1,7 @@
 package com.mohey.pma.entities;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -84,4 +85,13 @@ public class Employee {
         this.projects = projects;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", projects=" + projects +
+                '}';
+    }
 }
