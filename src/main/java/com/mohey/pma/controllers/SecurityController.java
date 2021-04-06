@@ -6,8 +6,11 @@ import com.mohey.pma.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class SecurityController {
@@ -24,7 +27,10 @@ public class SecurityController {
     }
 
     @PostMapping("/register/save")
-    public String saveAccountUser(Model model, UserAccount userAccount){
+    public String saveAccountUser(UserAccount userAccount){
+        /*if(bindingResult.hasErrors()){
+            return "security/register";
+        }*/
         userAccountService.save(userAccount);
        return  "redirect:/";
     }

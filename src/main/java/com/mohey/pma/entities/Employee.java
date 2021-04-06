@@ -1,6 +1,7 @@
 package com.mohey.pma.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,9 @@ public class Employee {
     @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
     private long employeeId;
 
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
 
     private String email;

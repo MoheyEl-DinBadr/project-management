@@ -1,6 +1,10 @@
 package com.mohey.pma.entities;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity(name = "user_accounts")
 @Table(name = "user_accounts")

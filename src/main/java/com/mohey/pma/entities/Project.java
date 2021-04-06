@@ -1,6 +1,7 @@
 package com.mohey.pma.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,10 @@ public class Project {
     @SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
     private long projectId;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String stage; //NOT_STARTED, COMPLETED, IN_PROGRESS
 
     private String description;
