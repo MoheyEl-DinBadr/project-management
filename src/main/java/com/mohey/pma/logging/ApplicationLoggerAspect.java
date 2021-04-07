@@ -20,7 +20,8 @@ public class ApplicationLoggerAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("within(com.mohey.pma.controllers..*)" /*+ " || within(com.mohey.pma.dao..*)"*/)
+    @Pointcut("within(com.mohey.pma.controllers..*)" + " || within(com.mohey.pma.api.controllers..*)"
+            /*+ " || within(com.mohey.pma.dao..*)"*/)
     public void definePackagePointcuts(){
         // empty method just to name the locations specified in the pointcut
     }

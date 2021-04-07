@@ -1,5 +1,7 @@
 package com.mohey.pma.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Arrays;
@@ -30,6 +32,7 @@ public class Employee {
     @JoinTable(name = "project_employee",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @JsonIgnore
     private List<Project> projects;
 
     public Employee() {

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -109,8 +110,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/projects/save").hasRole("ADMIN").
                 antMatchers("/employees/new").hasRole("ADMIN").
                 antMatchers("/employees/save").hasRole("ADMIN").
+                antMatchers(HttpMethod.POST,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.GET,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.PATCH,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.PUT,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.DELETE,"/app-api/**").permitAll().
                 antMatchers("/","/**").permitAll().
                 and().
+                csrf().disable().
                 formLogin();
     }
 }
