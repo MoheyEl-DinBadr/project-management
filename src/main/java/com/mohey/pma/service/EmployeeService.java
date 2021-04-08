@@ -4,6 +4,7 @@ import com.mohey.pma.dao.EmployeeRepository;
 import com.mohey.pma.dto.EmployeeProject;
 import com.mohey.pma.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
@@ -67,5 +68,9 @@ public class EmployeeService {
 
     public Employee findByEmail(String email){
         return employeeRepo.findByEmail(email);
+    }
+
+    public Iterable<Employee> findAll(Pageable pageable){
+        return employeeRepo.findAll(pageable);
     }
 }

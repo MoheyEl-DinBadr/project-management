@@ -3,8 +3,9 @@ package com.mohey.pma.dao;
 import com.mohey.pma.dto.EmployeeProject;
 import com.mohey.pma.entities.Employee;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
  * on March 15, 2021
  */
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+@RepositoryRestResource(collectionResourceRel = "apiemployees", path = "apiemployees")
+public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
 
     @Override
     List<Employee> findAll();
