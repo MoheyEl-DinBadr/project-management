@@ -1,10 +1,10 @@
 package com.mohey.pma.entities;
 
 
+import com.mohey.pma.validatiors.UniqueUserEmail;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
 
 @Entity(name = "user_accounts")
 @Table(name = "user_accounts")
@@ -17,7 +17,7 @@ public class UserAccount {
 
     @Column(name = "username")
     private String userName;
-
+    @Email @UniqueUserEmail
     private String email;
 
     private String password;

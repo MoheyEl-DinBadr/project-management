@@ -111,7 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/employees/new").hasRole("ADMIN").
                 antMatchers("/employees/save").hasRole("ADMIN").
                 antMatchers(HttpMethod.POST,"/app-api/**").permitAll().
-                antMatchers(HttpMethod.GET,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.GET,"/app-api/","/app-api/**").permitAll().
                 antMatchers(HttpMethod.PATCH,"/app-api/**").permitAll().
                 antMatchers(HttpMethod.PUT,"/app-api/**").permitAll().
                 antMatchers(HttpMethod.DELETE,"/app-api/**").permitAll().

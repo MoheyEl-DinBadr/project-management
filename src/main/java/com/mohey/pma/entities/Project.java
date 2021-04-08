@@ -20,7 +20,7 @@ public class Project {
     @SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
     private long projectId;
 
-    @NotEmpty
+    @NotEmpty @Column(unique = true, nullable = false)
     private String name;
 
     @NotEmpty

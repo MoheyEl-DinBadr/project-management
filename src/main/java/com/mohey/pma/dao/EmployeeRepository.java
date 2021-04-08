@@ -4,6 +4,7 @@ import com.mohey.pma.dto.EmployeeProject;
 import com.mohey.pma.entities.Employee;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
             "ON pe.employee_id = e.employee_id GROUP BY e.first_name, " +
             "e.last_name ORDER BY 3 DESC")
     public List<EmployeeProject> employeeProjects();
+
+    public Employee findByEmail(@Param("email") String email);
 
 }

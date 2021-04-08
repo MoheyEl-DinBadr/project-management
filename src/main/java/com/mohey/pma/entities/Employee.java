@@ -3,8 +3,9 @@ package com.mohey.pma.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Arrays;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -19,11 +20,11 @@ public class Employee {
     @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
     private long employeeId;
 
-    @NotEmpty
+    @NotEmpty @Size(min = 2, max = 50)
     private String firstName;
-    @NotEmpty
+    @NotEmpty @Size(min = 2, max = 50)
     private String lastName;
-
+    @NotEmpty @Email @Column(unique = true)
     private String email;
 
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,

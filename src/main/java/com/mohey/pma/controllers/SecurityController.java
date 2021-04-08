@@ -27,11 +27,16 @@ public class SecurityController {
     }
 
     @PostMapping("/register/save")
-    public String saveAccountUser(UserAccount userAccount){
-        /*if(bindingResult.hasErrors()){
+    public String saveAccountUser(@Valid UserAccount userAccount, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
             return "security/register";
-        }*/
-        userAccountService.save(userAccount);
+        }
+        try{
+            userAccountService.save(userAccount);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
        return  "redirect:/";
     }
 

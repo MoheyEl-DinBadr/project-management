@@ -26,4 +26,12 @@ public class UserAccountService {
         userAccount.setPassword(encodedPassword);
         this.userAccountRepo.save(userAccount);
     }
+
+    public UserAccount findByEmail(String email) {
+        return userAccountRepo.findByEmail(email);
+    }
+
+    public UserAccount findByUserName(String userName) {
+        return userAccountRepo.findByUserName(userName);
+    }
 }

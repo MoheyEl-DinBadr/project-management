@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,13 +29,13 @@ public class EmployeeApiController {
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@RequestBody Employee employee){
+    public Employee create(@Valid @RequestBody Employee employee){
         return employeeService.save(employee);
     }
 
     @PutMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Employee update(@RequestBody Employee employee){
+    public Employee update(@Valid @RequestBody Employee employee){
         return employeeService.save(employee);
     }
 
@@ -45,7 +46,7 @@ public class EmployeeApiController {
         return employeeService.saveOrUpdate(patchEmployee);
     }
 
-    @DeleteMapping(path = "/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id){
         try{
