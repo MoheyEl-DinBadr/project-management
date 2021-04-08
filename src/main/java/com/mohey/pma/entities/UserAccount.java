@@ -2,6 +2,7 @@ package com.mohey.pma.entities;
 
 
 import com.mohey.pma.validatiors.UniqueUserEmail;
+import com.mohey.pma.validatiors.UniqueUserName;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,7 +16,7 @@ public class UserAccount {
     @SequenceGenerator(name = "user_accounts_seq", sequenceName = "user_accounts_seq", allocationSize = 1)
     private long userId;
 
-    @Column(name = "username")
+    @Column(name = "username") @UniqueUserName
     private String userName;
     @Email @UniqueUserEmail
     private String email;
