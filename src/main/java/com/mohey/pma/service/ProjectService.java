@@ -2,12 +2,8 @@ package com.mohey.pma.service;
 
 import com.mohey.pma.dao.ProjectRepository;
 import com.mohey.pma.dto.ChartData;
-import com.mohey.pma.dto.ProjectDto;
-import com.mohey.pma.entities.Employee;
 import com.mohey.pma.entities.Project;
-import org.hibernate.criterion.ProjectionList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
