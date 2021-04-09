@@ -1,6 +1,7 @@
 package com.mohey.pma.controllers;
 
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import com.mohey.pma.entities.Employee;
@@ -35,20 +36,29 @@ public class EmployeeControllerTest {
 
     @Test
     public void testCreateEmployee() throws Exception {
-        Employee employee = new Employee();
-        employee.setLastName("Doe");
-        employee.setEmail("jane.doe@example.org");
-        employee.setFirstName("Jane");
-        employee.setProjects(new ArrayList<Project>());
-        employee.setEmployeeId(123L);
-        when(this.employeeService.save((Employee) any())).thenReturn(employee);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/employees/save");
+        when(this.projectService.getAll()).thenReturn(new ArrayList<Project>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/employees/save")
+                .param("email", "jane.doe@example.org");
+        MockMvcBuilders.standaloneSetup(this.employeeController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().size(2))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("allProjects", "employee"))
+                .andExpect(MockMvcResultMatchers.view().name("employees/new-employee"))
+                .andExpect(MockMvcResultMatchers.forwardedUrl("employees/new-employee"));
+    }
+
+    @Test
+    public void testDeleteEmployee() throws Exception {
+        doNothing().when(this.employeeService).delete((Long) any());
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/employees/delete");
+        MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1L));
         MockMvcBuilders.standaloneSetup(this.employeeController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("employee"))
+                .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/employees/"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/employees/"));
     }
@@ -109,6 +119,29 @@ public class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("employees"))
                 .andExpect(MockMvcResultMatchers.view().name("employees/list-employees"))
                 .andExpect(MockMvcResultMatchers.forwardedUrl("employees/list-employees"));
+    }
+
+    @Test
+    public void testUpdateEmployee() throws Exception {
+        when(this.projectService.getAll()).thenReturn(new ArrayList<Project>());
+
+        Employee employee = new Employee();
+        employee.setLastName("Doe");
+        employee.setEmail("jane.doe@example.org");
+        employee.setFirstName("Jane");
+        employee.setProjects(new ArrayList<Project>());
+        employee.setEmployeeId(123L);
+        when(this.employeeService.findById((Long) any())).thenReturn(employee);
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/employees/update");
+        MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1L));
+        MockMvcBuilders.standaloneSetup(this.employeeController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().size(2))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("allProjects", "employee"))
+                .andExpect(MockMvcResultMatchers.view().name("employees/new-employee"))
+                .andExpect(MockMvcResultMatchers.forwardedUrl("employees/new-employee"));
     }
 }
 
