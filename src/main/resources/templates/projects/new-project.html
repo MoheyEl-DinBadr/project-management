@@ -3,24 +3,48 @@
 <head th:replace="layouts :: head"/>
 <body>
     <nav th:replace="layouts :: navbar"/>
+
+    <br>
+
     <div class="container">
         <form th:action="@{/projects/save}" method="post" th:object="${project}" >
-            <input type="text" placeholder="Project Name" th:field="${project.name}">
 
-            <select th:field="${project.stage}">
-                <option th:value="NOTSTARTED" > Not Started </option>
-                <option th:value="INPROGRESS"> In Progress </option>
-                <option th:value="COMPLETED"> Completed </option>
-            </select>
+            <div class="form-group row">
+                <input class="form-control" type="text" placeholder="Project Name" th:field="${project.name}">
+            </div>
 
-            <textarea th:type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
-            <!-- The * refers to the parent object which is project -->
-            <select th:field="*{employees}" multiple="multiple">
-                <option th:each="employee : ${allEmployees}" th:value="${employee.employeeId}"
-                        th:text="${employee.firstName}"/>
-            </select>
+            <br>
 
-            <button type="submit">Create Project</button>
+
+            <div class="form-group row">
+                <select class="form-select" th:field="${project.stage}">
+                    <option th:value="NOTSTARTED" > Not Started </option>
+                    <option th:value="INPROGRESS"> In Progress </option>
+                    <option th:value="COMPLETED"> Completed </option>
+                </select>
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+                <textarea class="form-control" th:type="text" placeholder="Enter Project Description"
+                          th:field="${project.description}"></textarea>
+            </div>
+
+            <br>
+
+            <div class="form-group row">
+                <!-- The * refers to the parent object which is project -->
+                <select class="form-select" th:field="*{employees}" multiple="multiple">
+                    <option th:each="employee : ${allEmployees}" th:value="${employee.employeeId}"
+                            th:text="${employee.firstName}"/>
+                </select>
+            </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-info col-2">Create Project</button>
+
         </form>
     </div>
 </body>

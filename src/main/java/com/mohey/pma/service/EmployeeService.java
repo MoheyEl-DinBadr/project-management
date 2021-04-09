@@ -1,13 +1,16 @@
 package com.mohey.pma.service;
 
 import com.mohey.pma.dao.EmployeeRepository;
+import com.mohey.pma.dto.EmployeeDto;
 import com.mohey.pma.dto.EmployeeProject;
+import com.mohey.pma.dto.ProjectDto;
 import com.mohey.pma.entities.Employee;
+import com.mohey.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +56,9 @@ public class EmployeeService {
             }
             if(employee.getLastName() != null){
                 presentEmployee.setLastName(employee.getLastName());
+            }
+            if(employee.getProjects() != null && employee.getProjects().size() != 0){
+                presentEmployee.setProjects(employee.getProjects());
             }
             employeeRepo.save(presentEmployee);
             return presentEmployee;

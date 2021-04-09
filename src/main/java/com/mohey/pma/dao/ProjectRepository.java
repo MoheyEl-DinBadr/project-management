@@ -1,6 +1,7 @@
 package com.mohey.pma.dao;
 
 import com.mohey.pma.dto.ChartData;
+import com.mohey.pma.entities.Employee;
 import com.mohey.pma.entities.Project;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -21,4 +22,5 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, L
 
     @Query(nativeQuery = true, value = "SELECT stage as label, COUNT(stage) as value FROM project GROUP BY stage")
     List<ChartData> getProjectStatus();
+
 }

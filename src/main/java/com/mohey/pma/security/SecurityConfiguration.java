@@ -117,7 +117,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers(HttpMethod.DELETE,"/app-api/**").permitAll().
                 antMatchers("/","/**").permitAll().
                 and().
-                csrf().disable().
                 formLogin();
     }
 }

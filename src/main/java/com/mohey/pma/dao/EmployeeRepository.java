@@ -1,6 +1,7 @@
 package com.mohey.pma.dao;
 
 import com.mohey.pma.dto.EmployeeProject;
+import com.mohey.pma.dto.ProjectDto;
 import com.mohey.pma.entities.Employee;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -28,6 +29,14 @@ public interface EmployeeRepository extends PagingAndSortingRepository<Employee,
             "ON pe.employee_id = e.employee_id GROUP BY e.first_name, " +
             "e.last_name ORDER BY 3 DESC")
     public List<EmployeeProject> employeeProjects();
+
+    @Query(nativeQuery = true, value = "SELECT * " +
+            "FROM project p WHERE " +
+            "p.project_id IN(" +
+            "SELECT project_id " +
+            "FROM project_employee " +
+            "WHERE employee_id = ?)")
+    public List<ProjectDto> findProjectsByEmployeeId(Long id);
 
     public Employee findByEmail(@Param("email") String email);
 
