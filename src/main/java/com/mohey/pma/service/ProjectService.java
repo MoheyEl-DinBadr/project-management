@@ -66,4 +66,17 @@ public class ProjectService {
     public List<ChartData> getProjectStatus(){
         return projectRepo.getProjectStatus();
     }
+
+    /*protected static synchronized Project mapDtoToEntity(ProjectDto projectDto){
+        Project project = new Project();
+        if(projectDto.getProjectId() != null){
+            project.setProjectId(projectDto.getProjectId().longValue());
+        }
+
+        project.setStage(projectDto.getStage());
+        project.setName(projectDto.getName());
+        project.setDescription(projectDto.getDescription());
+
+        return project;
+    }*/
 }

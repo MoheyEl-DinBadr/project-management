@@ -79,4 +79,19 @@ public class EmployeeService {
     public Iterable<Employee> findAll(Pageable pageable){
         return employeeRepo.findAll(pageable);
     }
+
+    /*public List<Project> findProjectsByEmployeeId(Long id){
+        List<ProjectDto> projectDtos = employeeRepo.findProjectsByEmployeeId(id);
+        List<Project> projects = new ArrayList<>();
+        projectDtos.stream().parallel().forEach(projectDto ->{
+            projects.add(ProjectService.mapDtoToEntity(projectDto));
+        });
+
+        return projects;
+    }
+
+    public static synchronized Employee mapDtoToEntity(EmployeeDto employeeDto){
+        return null;
+    }*/
+
 }
