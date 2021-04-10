@@ -47,6 +47,16 @@ public class ProjectService {
             if(project.getStage() != null){
                 presentProject.setStage(project.getStage());
             }
+
+            if(project.getStartDate() != null){
+                presentProject.setStartDate(project.getStartDate());
+            }
+
+            if(project.getEndDate() != null){
+                presentProject.setEndDate(project.getEndDate());
+            }
+
+            return projectRepo.save(presentProject);
         }
         return projectRepo.save(project);
     }

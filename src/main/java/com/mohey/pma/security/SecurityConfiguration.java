@@ -106,7 +106,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().
-                antMatchers("/projects/new").hasRole("ADMIN").
+               /* antMatchers("/projects/new").hasRole("ADMIN").
                 antMatchers("/projects/save").hasRole("ADMIN").
                 antMatchers("/employees/new").hasRole("ADMIN").
                 antMatchers("/employees/save").hasRole("ADMIN").
@@ -114,7 +114,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers(HttpMethod.GET,"/app-api/","/app-api/**").permitAll().
                 antMatchers(HttpMethod.PATCH,"/app-api/**").permitAll().
                 antMatchers(HttpMethod.PUT,"/app-api/**").permitAll().
-                antMatchers(HttpMethod.DELETE,"/app-api/**").permitAll().
+                antMatchers(HttpMethod.DELETE,"/app-api/**").permitAll().*/
                 antMatchers("/","/**").permitAll().
                 and().
                 formLogin();

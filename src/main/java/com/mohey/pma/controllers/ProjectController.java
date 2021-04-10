@@ -54,7 +54,7 @@ public class ProjectController {
             List<Employee> employees = employeeService.getAll();
             model.addAttribute("allEmployees", employees);
         }
-        projectService.save(project);
+        projectService.saveOrUpdate(project);
 
         return "redirect:/projects/";
     }
@@ -68,7 +68,7 @@ public class ProjectController {
     @GetMapping(value = "/update")
     public String updateEmployee(@Param("id") Long id, Model model){
         //Save Employee to Database
-        Project aProject = new Project();
+        Project aProject = projectService.findById(id);
         model.addAttribute("project", aProject);
         List<Employee> employees = employeeService.getAll();
         model.addAttribute("allEmployees", employees);

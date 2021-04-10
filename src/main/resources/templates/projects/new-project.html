@@ -9,6 +9,9 @@
     <div class="container">
         <form th:action="@{/projects/save}" method="post" th:object="${project}" >
 
+            <!-- This will be used to bind to the project clicked (USED FOR UPDATES)-->
+            <input type="hidden" th:field="*{projectId}">
+
             <div class="form-group row">
                 <input class="form-control" type="text" placeholder="Project Name" th:field="${project.name}">
             </div>
@@ -34,7 +37,6 @@
             <br>
 
             <div class="form-group row">
-                <!-- The * refers to the parent object which is project -->
                 <select class="form-select" th:field="*{employees}" multiple="multiple">
                     <option th:each="employee : ${allEmployees}" th:value="${employee.employeeId}"
                             th:text="${employee.firstName}"/>
@@ -43,7 +45,26 @@
 
             <br>
 
-            <button type="submit" class="btn btn-info col-2">Create Project</button>
+            Project Start Date:
+            <div class="form-group row">
+                <input id="dp3" type="date" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="*{startDate}">
+            </div>
+
+            <br>
+
+            Project End Date:
+            <div class="form-group row">
+                <input id="dp4" type="date" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="*{endDate}">
+            </div>
+
+            <!--<script type="text/javascript">
+                $('#dp3').datepicker();
+                $('#dp4').datepicker();
+            </script>-->
+
+            <br>
+
+            <button type="submit" class="btn btn-info col-2">Save Project</button>
 
         </form>
     </div>

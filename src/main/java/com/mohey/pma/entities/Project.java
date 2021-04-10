@@ -1,10 +1,14 @@
 package com.mohey.pma.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mohey.pma.validatiors.DateValidation;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,7 +17,7 @@ import java.util.List;
  * on March 15, 2021
  */
 
-@Entity
+@Entity @DateValidation
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
@@ -27,6 +31,11 @@ public class Project {
     private String stage; //NOT_STARTED, COMPLETED, IN_PROGRESS
 
     private String description;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
                 fetch = FetchType.LAZY)
@@ -57,6 +66,15 @@ public class Project {
         this.name = name;
         this.stage = stage;
         this.description = description;
+        this.employees = employees;
+    }
+
+    public Project(String name, String stage, String description, Date startDate, Date endDate, List<Employee> employees) {
+        this.name = name;
+        this.stage = stage;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.employees = employees;
     }
 
@@ -105,6 +123,22 @@ public class Project {
             employees = new ArrayList<>();
         }
         employees.add(employee);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     @Override

@@ -37,15 +37,19 @@ public class HomeController {
     @GetMapping
     public String displayHome(Model model) throws JsonProcessingException {
 
+        ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("versionNumber", version);
 
-        //List<Project> projects = projectRepo.findAll();
-        model.addAttribute("projects", projectRepo.findAll());
+        List<Project> projects = projectRepo.findAll();
+        model.addAttribute("projects", projects);
 
+        String projectsJson = objectMapper.writeValueAsString(projects);
+
+        model.addAttribute("projectsJson", projectsJson);
         List<ChartData> projectData = projectRepo.getProjectStatus();
         //Lets convert projectsData object to JSON format to use in javascript
 
-        ObjectMapper objectMapper = new ObjectMapper();
+
         String jsonString = objectMapper.writeValueAsString(projectData);
 
         model.addAttribute("projectStatusCnt", jsonString);
