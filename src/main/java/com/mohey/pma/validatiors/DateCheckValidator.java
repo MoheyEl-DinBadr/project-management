@@ -9,6 +9,9 @@ public class DateCheckValidator implements ConstraintValidator<DateValidation, P
 
     @Override
     public boolean isValid(Project project, ConstraintValidatorContext context) {
-        return project.getEndDate().after(project.getStartDate());
+        if(project.getEndDate() != null && project.getStartDate()!= null){
+            return project.getEndDate().after(project.getStartDate());
+        }
+        return true;
     }
 }
