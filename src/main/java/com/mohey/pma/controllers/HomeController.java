@@ -2,20 +2,21 @@ package com.mohey.pma.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mohey.pma.dao.EmployeeRepository;
-import com.mohey.pma.dao.ProjectRepository;
 import com.mohey.pma.dto.EmployeeProject;
 import com.mohey.pma.dto.ChartData;
+import com.mohey.pma.dto.ProjectTimelineDto;
 import com.mohey.pma.entities.Project;
+import com.mohey.pma.service.EmployeeService;
+import com.mohey.pma.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.HashMap;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Mohey El-Din Badr
@@ -29,34 +30,57 @@ public class HomeController {
     String version;
 
     @Autowired
-    ProjectRepository projectRepo;
+    ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepo;
+    EmployeeService employeeService;
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping
-    public String displayHome(Model model) throws JsonProcessingException {
+    public String displayHome(Model model) {
 
-        ObjectMapper objectMapper = new ObjectMapper();
+
         model.addAttribute("versionNumber", version);
 
-        List<Project> projects = projectRepo.findAll();
+        List<Project> projects = projectService.findAll();
         model.addAttribute("projects", projects);
 
-        String projectsJson = objectMapper.writeValueAsString(projects);
-
-        model.addAttribute("projectsJson", projectsJson);
-        List<ChartData> projectData = projectRepo.getProjectStatus();
+        List<ChartData> projectData = projectService.getProjectStatus();
         //Lets convert projectsData object to JSON format to use in javascript
 
 
-        String jsonString = objectMapper.writeValueAsString(projectData);
+        String jsonString = null;
+        try {
+            jsonString = objectMapper.writeValueAsString(projectData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         model.addAttribute("projectStatusCnt", jsonString);
 
-        List<EmployeeProject> employeeProjectCount = employeeRepo.employeeProjects();
+        List<EmployeeProject> employeeProjectCount = employeeService.employeeProjects();
         model.addAttribute("employeesListProjectsCount", employeeProjectCount);
         return "main/home";
+    }
+
+    @GetMapping("/timeline")
+    public String displayTimeline(Model model){
+
+        List<ProjectTimelineDto> projectTimeline = projectService.getProjectsTimeline();
+        Field[] fields = projectTimeline.get(0).getClass().getFields();
+        System.out.println("Arrays.asList(fields) = " + Arrays.asList(fields));
+
+        String projectsJson = null;
+        try {
+            projectsJson = objectMapper.writeValueAsString(projectTimeline);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("projectsJson", projectsJson);
+
+        return "projects/projects-timeline";
     }
 
 }

@@ -2,6 +2,7 @@ package com.mohey.pma.service;
 
 import com.mohey.pma.dao.ProjectRepository;
 import com.mohey.pma.dto.ChartData;
+import com.mohey.pma.dto.ProjectTimelineDto;
 import com.mohey.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class ProjectService {
             return optionalProject.get();
         }
         return null;
+    }
+
+    public List<Project> findAll(){
+        return projectRepo.findAll();
     }
 
     public Project saveOrUpdate(Project project){
@@ -71,6 +76,10 @@ public class ProjectService {
 
     public List<ChartData> getProjectStatus(){
         return projectRepo.getProjectStatus();
+    }
+
+    public List<ProjectTimelineDto> getProjectsTimeline(){
+        return projectRepo.getProjectsTimeline();
     }
 
     /*protected static synchronized Project mapDtoToEntity(ProjectDto projectDto){

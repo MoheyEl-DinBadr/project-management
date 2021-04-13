@@ -16,10 +16,7 @@ CREATE TABLE IF NOT EXISTS project (
 project_id BIGINT NOT NULL DEFAULT nextval('project_seq') PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 stage VARCHAR(100) NOT NULL,
-description VARCHAR(500) NOT NULL,
-start_date DATE,
-end_date DATE
-
+description VARCHAR(500) NOT NULL
 );
 
 
@@ -29,3 +26,7 @@ project_id BIGINT REFERENCES project,
 employee_id BIGINT REFERENCES employee
 
 );
+
+ALTER TABLE project
+    ADD COLUMN start_date DATE NOT NULL,
+    ADD COLUMN end_date DATE NOT NULL;
