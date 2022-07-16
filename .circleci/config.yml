@@ -18,7 +18,6 @@ jobs:
 workflows:
   maven_test:
     jobs:
-      - maven/test
       - print_hello
       - print_world:
           requires:
