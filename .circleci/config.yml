@@ -3,7 +3,23 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.1
 
+jobs:
+  print_hello:
+    docker:
+      - image: circleci/java
+    steps:
+      - run: echo hello
+  print_world:
+    docker:
+      - image: circleci/java
+    steps:
+      - run: echo  world
+
 workflows:
   maven_test:
     jobs:
       - maven/test
+      - print_hello
+      - print_world:
+          requires:
+            - print_hello
